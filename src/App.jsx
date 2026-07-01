@@ -69,7 +69,7 @@ export default function App() {
           />
         )}
 
-        <main className="flex-1 pt-[72px] overflow-y-auto min-h-0">
+        <main className="flex-1 pt-[64px] overflow-y-auto min-h-0">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentView}
