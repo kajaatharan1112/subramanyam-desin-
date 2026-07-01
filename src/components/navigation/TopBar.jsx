@@ -1,4 +1,4 @@
-import { Search, Bell, Menu, LogOut } from "lucide-react"
+import { Bell, Menu, LogOut } from "lucide-react"
 
 const VIEW_TITLES = {
   admin_dashboard: 'Dashboard',
@@ -26,15 +26,6 @@ export default function TopBar({ currentView, onToggleSidebar, onLogout, onSearc
       </div>
 
       <div className="flex items-center gap-6">
-        <div className="relative hidden md:block">
-          <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-[var(--color-neo-text-secondary)]" size={18} />
-          <input
-            type="text"
-            placeholder="Search..."
-            onChange={(e) => onSearch?.(e.target.value)}
-            className="h-11 w-72 rounded-[var(--radius-neo-pill)] bg-[var(--color-neo-surface)] pl-11 pr-4 text-sm text-[var(--color-neo-text-primary)] shadow-[var(--shadow-neo-pressed)] outline-none transition-all placeholder:text-[var(--color-neo-text-secondary)] focus:ring-2 focus:ring-[var(--color-neo-primary)] focus:ring-offset-2 focus:ring-offset-[var(--color-neo-bg)]"
-          />
-        </div>
 
         <button
           type="button"
