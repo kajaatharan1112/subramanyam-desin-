@@ -21,7 +21,7 @@ export default function TopBar({ currentView, onToggleSidebar, onLogout, onSearc
       <div className="flex items-center gap-4">
 
         <h2 className="text-xl font-bold tracking-tight text-[var(--color-neo-text-primary)]">
-          {VIEW_TITLES[currentView] || 'ONEVO'}
+          {VIEW_TITLES[currentView] || 'Dashboard'}
         </h2>
       </div>
 

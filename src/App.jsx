@@ -12,7 +12,7 @@ import ToastContainer from './components/feedback/Toast.jsx'
 import { useLocalStorage } from './hooks/useLocalStorage.js'
 
 export default function App() {
-  const [role, setRole] = useLocalStorage('onevo_role', null)
+  const [role, setRole] = useLocalStorage('app_role', null)
   const [currentView, setCurrentView] = useState(VIEWS.LOGIN)
   const [sidebarOpen, setSidebarOpen] = useState(false)
 

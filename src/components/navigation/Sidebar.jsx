@@ -35,16 +35,13 @@ export default function Sidebar({ currentView, onNavigate, role, onRoleSwitch, s
     >
       {/* Brand */}
       <div className="flex items-center gap-4 border-b border-[var(--color-neo-secondary)]/10 p-6">
-        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[var(--radius-neo-md)] bg-gradient-to-br from-[var(--color-neo-primary)] to-[#8b5cf6] font-bold text-white shadow-[var(--shadow-neo-soft)]">
-          O
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[var(--radius-neo-md)] bg-gradient-to-br from-[var(--color-neo-primary)] to-[#8b5cf6] text-white shadow-[var(--shadow-neo-soft)]">
+          <Package size={20} />
         </div>
         <div className="flex flex-col">
           <h3 className="bg-gradient-to-br from-[var(--color-neo-primary)] to-[#8b5cf6] bg-clip-text text-lg font-bold text-transparent">
-            ONEVO
-          </h3>
-          <span className="text-[10px] font-medium uppercase tracking-widest text-[var(--color-neo-text-secondary)]">
             Billing System
-          </span>
+          </h3>
         </div>
       </div>
 

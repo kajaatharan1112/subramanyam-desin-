@@ -2,12 +2,7 @@ import { motion } from "framer-motion"
 import { CheckCircle2, ShieldCheck, FileText, Bell } from "lucide-react"
 
 export default function LoginPage({ onLogin }) {
-  const features = [
-    { icon: <ShieldCheck size={20} className="text-[var(--color-neo-primary)]" />, text: "Enterprise SaaS Security" },
-    { icon: <FileText size={20} className="text-[var(--color-neo-primary)]" />, text: "Manage bills & orders seamlessly" },
-    { icon: <CheckCircle2 size={20} className="text-[var(--color-neo-primary)]" />, text: "Real-time order tracking" },
-    { icon: <Bell size={20} className="text-[var(--color-neo-primary)]" />, text: "Automated email notifications" },
-  ]
+
 
   return (
     <div className="relative flex min-h-dvh items-center justify-center overflow-hidden bg-[var(--color-neo-bg)] p-6">
@@ -33,11 +28,8 @@ export default function LoginPage({ onLogin }) {
         className="relative z-10 w-full max-w-md rounded-[var(--radius-neo-large)] bg-[var(--color-neo-surface)] p-8 shadow-[var(--shadow-neo-floating)] border border-white/50"
       >
         <div className="mb-8 flex flex-col items-center text-center">
-          <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-[var(--radius-neo-lg)] bg-[var(--color-neo-surface)] shadow-[var(--shadow-neo-soft)] text-3xl font-bold text-[var(--color-neo-primary)] border border-white/40">
-            O
-          </div>
           <h1 className="mb-2 text-2xl font-bold text-[var(--color-neo-text-primary)] tracking-tight">
-            Welcome to ONEVO
+            Welcome
           </h1>
           <p className="text-sm font-medium text-[var(--color-neo-text-secondary)]">
             Premium Billing & Order Management
@@ -90,16 +82,7 @@ export default function LoginPage({ onLogin }) {
           </motion.button>
         </div>
 
-        <div className="mt-8 space-y-3 rounded-[var(--radius-neo-md)] bg-[var(--color-neo-bg)]/50 p-5 shadow-[var(--shadow-neo-pressed)]">
-          {features.map((feature, i) => (
-            <div key={i} className="flex items-center gap-3 text-sm text-[var(--color-neo-text-secondary)] font-medium">
-              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[var(--radius-neo-sm)] bg-[var(--color-neo-surface)] shadow-[var(--shadow-neo-soft)]">
-                {feature.icon}
-              </div>
-              {feature.text}
-            </div>
-          ))}
-        </div>
+
       </motion.div>
     </div>
   )
