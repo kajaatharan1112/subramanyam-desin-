@@ -104,36 +104,37 @@ function CustomerCard({ customer, onNavigate, onEdit, onDelete, onAddBill }) {
               </div>
             </div>
 
-            {/* Action buttons */}
-            <div className="grid grid-cols-3 gap-2 px-4 pb-4">
-              <button
-                type="button"
-                onClick={() => onAddBill(c)}
-                className="flex flex-col items-center gap-1 rounded-xl bg-[var(--color-neo-primary)]/10 py-2.5 text-[var(--color-neo-primary)] transition-all active:scale-95 hover:bg-[var(--color-neo-primary)]/18"
-              >
-                <FileText size={16} />
-                <span className="text-[10px] font-semibold">Add Bill</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => onEdit(c)}
-                className="flex flex-col items-center gap-1 rounded-xl bg-[var(--color-neo-warning)]/10 py-2.5 text-[var(--color-neo-warning)] transition-all active:scale-95 hover:bg-[var(--color-neo-warning)]/18"
-              >
-                <Edit2 size={16} />
-                <span className="text-[10px] font-semibold">Edit</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => onDelete(c)}
-                className="flex flex-col items-center gap-1 rounded-xl bg-[var(--color-neo-danger)]/10 py-2.5 text-[var(--color-neo-danger)] transition-all active:scale-95 hover:bg-[var(--color-neo-danger)]/18"
-              >
-                <Trash2 size={16} />
-                <span className="text-[10px] font-semibold">Delete</span>
-              </button>
-            </div>
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Action buttons - always visible */}
+      <div className="grid grid-cols-3 gap-2 px-4 pb-4 border-t border-[var(--color-neo-secondary)]/10 pt-4 mt-1">
+        <button
+          type="button"
+          onClick={(e) => { e.stopPropagation(); onAddBill(c); }}
+          className="flex flex-col items-center gap-1 rounded-xl bg-[var(--color-neo-primary)]/10 py-2.5 text-[var(--color-neo-primary)] transition-all active:scale-95 hover:bg-[var(--color-neo-primary)]/18"
+        >
+          <FileText size={16} />
+          <span className="text-[10px] font-semibold">Add Bill</span>
+        </button>
+        <button
+          type="button"
+          onClick={(e) => { e.stopPropagation(); onEdit(c); }}
+          className="flex flex-col items-center gap-1 rounded-xl bg-[var(--color-neo-warning)]/10 py-2.5 text-[var(--color-neo-warning)] transition-all active:scale-95 hover:bg-[var(--color-neo-warning)]/18"
+        >
+          <Edit2 size={16} />
+          <span className="text-[10px] font-semibold">Edit</span>
+        </button>
+        <button
+          type="button"
+          onClick={(e) => { e.stopPropagation(); onDelete(c); }}
+          className="flex flex-col items-center gap-1 rounded-xl bg-[var(--color-neo-danger)]/10 py-2.5 text-[var(--color-neo-danger)] transition-all active:scale-95 hover:bg-[var(--color-neo-danger)]/18"
+        >
+          <Trash2 size={16} />
+          <span className="text-[10px] font-semibold">Delete</span>
+        </button>
+      </div>
     </motion.div>
   )
 }
@@ -197,8 +198,8 @@ export default function CustomerList({ onNavigate }) {
         </div>
       </div>
 
-      {/* ── MOBILE: Card List ── */}
-      <div className="flex flex-col gap-3 md:hidden">
+      {/* ── Customer Cards List ── */}
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
         <AnimatePresence>
           {filtered.map((c) => (
             <CustomerCard
@@ -211,97 +212,13 @@ export default function CustomerList({ onNavigate }) {
             />
           ))}
         </AnimatePresence>
-        {filtered.length === 0 && (
-          <div className="py-16 text-center text-[var(--color-neo-text-secondary)] font-medium text-sm">
-            No customers found.
-          </div>
-        )}
       </div>
-
-      {/* ── DESKTOP: Table ── */}
-      <div className="hidden md:block">
-        <Card>
-          <CardContent className="p-0 overflow-x-auto">
-            <table className="w-full text-left text-sm whitespace-nowrap">
-              <thead className="bg-[var(--color-neo-surface)] border-b border-[var(--color-neo-secondary)]/10 text-[11px] font-bold uppercase tracking-wider text-[var(--color-neo-text-secondary)]">
-                <tr>
-                  <th className="px-6 py-4 rounded-tl-[var(--radius-neo-large)]">Customer</th>
-                  <th className="px-6 py-4">Phone</th>
-                  <th className="px-6 py-4">Email</th>
-                  <th className="px-6 py-4">Status</th>
-                  <th className="px-6 py-4">Joined</th>
-                  <th className="px-6 py-4 rounded-tr-[var(--radius-neo-large)] text-right">Actions</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-[var(--color-neo-secondary)]/10 bg-[var(--color-neo-card)]">
-                {filtered.map((c) => (
-                  <tr
-                    key={c.id}
-                    className="cursor-pointer transition-colors hover:bg-[var(--color-neo-surface)] group"
-                  >
-                    <td className="px-6 py-4" onClick={() => onNavigate(VIEWS.CUSTOMER_DETAIL, { customerId: c.id })}>
-                      <div className="flex items-center gap-4">
-                        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[var(--radius-neo-md)] bg-gradient-to-br from-[var(--color-neo-primary)] to-[#8b5cf6] font-bold text-white text-xs shadow-sm">
-                          {getInitials(c.name)}
-                        </div>
-                        <div>
-                          <div className="font-semibold text-[var(--color-neo-text-primary)]">{c.name}</div>
-                          <div className="text-xs font-medium text-[var(--color-neo-text-secondary)]">{c.company}</div>
-                        </div>
-                      </div>
-                    </td>
-                    <td className="px-6 py-4 font-medium text-[var(--color-neo-text-secondary)]" onClick={() => onNavigate(VIEWS.CUSTOMER_DETAIL, { customerId: c.id })}>{c.phone}</td>
-                    <td className="px-6 py-4 font-medium text-[var(--color-neo-text-secondary)]" onClick={() => onNavigate(VIEWS.CUSTOMER_DETAIL, { customerId: c.id })}>{c.email}</td>
-                    <td className="px-6 py-4" onClick={() => onNavigate(VIEWS.CUSTOMER_DETAIL, { customerId: c.id })}>
-                      <span className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider ${
-                        c.active ? 'bg-[var(--color-neo-success)]/10 text-[var(--color-neo-success)]' : 'bg-gray-500/10 text-gray-500'
-                      }`}>
-                        <span className={`h-1.5 w-1.5 rounded-full ${c.active ? 'bg-[var(--color-neo-success)]' : 'bg-gray-500'}`} />
-                        {c.active ? 'Active' : 'Inactive'}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4 font-medium text-[var(--color-neo-text-secondary)]" onClick={() => onNavigate(VIEWS.CUSTOMER_DETAIL, { customerId: c.id })}>{formatDate(c.createdAt)}</td>
-                    {/* Action buttons */}
-                    <td className="px-6 py-4">
-                      <div className="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                        <button
-                          type="button"
-                          title="Add Bill"
-                          onClick={() => handleAddBill(c)}
-                          className="flex h-8 w-8 items-center justify-center rounded-lg bg-[var(--color-neo-primary)]/10 text-[var(--color-neo-primary)] hover:bg-[var(--color-neo-primary)]/20 transition-all"
-                        >
-                          <FileText size={14} />
-                        </button>
-                        <button
-                          type="button"
-                          title="Edit"
-                          onClick={() => handleEdit(c)}
-                          className="flex h-8 w-8 items-center justify-center rounded-lg bg-[var(--color-neo-warning)]/10 text-[var(--color-neo-warning)] hover:bg-[var(--color-neo-warning)]/20 transition-all"
-                        >
-                          <Edit2 size={14} />
-                        </button>
-                        <button
-                          type="button"
-                          title="Delete"
-                          onClick={() => handleDelete(c)}
-                          className="flex h-8 w-8 items-center justify-center rounded-lg bg-[var(--color-neo-danger)]/10 text-[var(--color-neo-danger)] hover:bg-[var(--color-neo-danger)]/20 transition-all"
-                        >
-                          <Trash2 size={14} />
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-            {filtered.length === 0 && (
-              <div className="p-12 text-center text-[var(--color-neo-text-secondary)] font-medium">
-                No customers found matching your search.
-              </div>
-            )}
-          </CardContent>
-        </Card>
-      </div>
+      
+      {filtered.length === 0 && (
+        <div className="py-16 text-center text-[var(--color-neo-text-secondary)] font-medium w-full">
+          No customers found matching your search.
+        </div>
+      )}
 
       {/* ── Add Customer Modal ── */}
       {showAddModal && (
