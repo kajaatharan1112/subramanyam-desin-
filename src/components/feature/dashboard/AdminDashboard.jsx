@@ -52,9 +52,6 @@ export default function AdminDashboard({ onNavigate }) {
         <PrimaryButton icon={<Plus size={18} />} onClick={() => onNavigate(VIEWS.BILL_CREATE)}>
           New Bill
         </PrimaryButton>
-        <PrimaryButton variant="default" icon={<Users size={18} />} onClick={() => onNavigate(VIEWS.CUSTOMER_LIST)}>
-          New Customer
-        </PrimaryButton>
         <PrimaryButton variant="ghost" icon={<Package size={18} />} onClick={() => onNavigate(VIEWS.ORDER_TRACKING)}>
           Track Orders
         </PrimaryButton>

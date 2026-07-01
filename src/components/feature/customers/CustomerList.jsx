@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from "framer-motion"
-import { Search, Plus, Edit2, Trash2, FileText, Phone, Mail, Building2, Calendar, ChevronDown, ChevronUp } from "lucide-react"
+import { Search, Plus, Edit2, Trash2, FileText, Eye, Phone, Mail, Building2, Calendar, ChevronDown, ChevronUp } from "lucide-react"
 import { MOCK_CUSTOMERS } from '../../../constants/mockData.js'
 import { getInitials, formatDate } from '../../../utils/formatters.js'
 import { VIEWS } from '../../../constants/routes.js'
@@ -99,30 +99,38 @@ function CustomerCard({ customer, onNavigate, onEdit, onDelete, onAddBill }) {
             </div>
 
             {/* Action buttons */}
-            <div className="grid grid-cols-3 gap-2 px-4 pb-4 pt-1">
+            <div className="grid grid-cols-4 gap-1.5 px-4 pb-4 pt-1">
+              <button
+                type="button"
+                onClick={(e) => { e.stopPropagation(); onNavigate(VIEWS.BILL_LIST); }}
+                className="flex flex-col items-center gap-1 rounded-xl bg-[var(--color-neo-primary)]/10 py-2.5 text-[var(--color-neo-primary)] transition-all active:scale-95 hover:bg-[var(--color-neo-primary)]/18"
+              >
+                <Eye size={15} />
+                <span className="text-[9px] font-semibold">View Bill</span>
+              </button>
               <button
                 type="button"
                 onClick={(e) => { e.stopPropagation(); onAddBill(c); }}
                 className="flex flex-col items-center gap-1 rounded-xl bg-[var(--color-neo-primary)]/10 py-2.5 text-[var(--color-neo-primary)] transition-all active:scale-95 hover:bg-[var(--color-neo-primary)]/18"
               >
-                <FileText size={16} />
-                <span className="text-[10px] font-semibold">Add Bill</span>
+                <FileText size={15} />
+                <span className="text-[9px] font-semibold">Add Bill</span>
               </button>
               <button
                 type="button"
                 onClick={(e) => { e.stopPropagation(); onEdit(c); }}
                 className="flex flex-col items-center gap-1 rounded-xl bg-[var(--color-neo-warning)]/10 py-2.5 text-[var(--color-neo-warning)] transition-all active:scale-95 hover:bg-[var(--color-neo-warning)]/18"
               >
-                <Edit2 size={16} />
-                <span className="text-[10px] font-semibold">Edit</span>
+                <Edit2 size={15} />
+                <span className="text-[9px] font-semibold">Edit</span>
               </button>
               <button
                 type="button"
                 onClick={(e) => { e.stopPropagation(); onDelete(c); }}
                 className="flex flex-col items-center gap-1 rounded-xl bg-[var(--color-neo-danger)]/10 py-2.5 text-[var(--color-neo-danger)] transition-all active:scale-95 hover:bg-[var(--color-neo-danger)]/18"
               >
-                <Trash2 size={16} />
-                <span className="text-[10px] font-semibold">Delete</span>
+                <Trash2 size={15} />
+                <span className="text-[9px] font-semibold">Delete</span>
               </button>
             </div>
           </>

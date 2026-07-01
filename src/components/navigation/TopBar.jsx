@@ -1,4 +1,4 @@
-import { Bell, Menu, LogOut } from "lucide-react"
+import { Bell, LogOut } from "lucide-react"
 
 const VIEW_TITLES = {
   admin_dashboard: 'Dashboard',
@@ -19,22 +19,13 @@ export default function TopBar({ currentView, onToggleSidebar, onLogout }) {
   const title = VIEW_TITLES[currentView] || 'Dashboard'
 
   return (
-    <header className="fixed left-0 right-0 top-0 z-40 flex h-[64px] items-center justify-between border-b border-[var(--color-neo-secondary)]/10 bg-[var(--color-neo-bg)] px-5 md:left-[260px]">
+    <header className="fixed left-0 right-0 top-0 z-40 flex h-[64px] items-center justify-between border-b border-[var(--color-neo-secondary)]/10 bg-[var(--color-neo-bg)] px-5 md:left-[72px]">
 
-      {/* Left – hamburger (mobile) + page title */}
-      <div className="flex items-center gap-3">
-        <button
-          type="button"
-          onClick={onToggleSidebar}
-          className="flex h-9 w-9 items-center justify-center rounded-lg text-[var(--color-neo-text-secondary)] transition-colors hover:bg-[var(--color-neo-surface)] hover:text-[var(--color-neo-text-primary)] md:hidden"
-        >
-          <Menu size={20} />
-        </button>
-        <div>
-          <h2 className="text-base font-bold tracking-tight text-[var(--color-neo-text-primary)]">
-            {title}
-          </h2>
-        </div>
+      {/* Left – page title */}
+      <div className="flex items-center">
+        <h2 className="text-base font-bold tracking-tight text-[var(--color-neo-text-primary)]">
+          {title}
+        </h2>
       </div>
 
       {/* Right – notifications + avatar + logout */}

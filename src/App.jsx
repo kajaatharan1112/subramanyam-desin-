@@ -54,7 +54,7 @@ export default function App() {
         sidebarOpen={sidebarOpen}
       />
 
-      <div className="flex h-full flex-1 flex-col overflow-hidden md:pl-[260px] pb-[calc(54px+3mm+env(safe-area-inset-bottom,0px))] md:pb-0">
+      <div className="flex h-full flex-1 flex-col overflow-hidden md:pl-[72px] pb-[calc(54px+3mm+env(safe-area-inset-bottom,0px))] md:pb-0">
         <TopBar
           currentView={currentView}
           onToggleSidebar={toggleSidebar}
