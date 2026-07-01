@@ -95,7 +95,36 @@ function CustomerCard({ customer, onNavigate, onEdit, onDelete, onAddBill }) {
                 <div className="text-sm font-medium text-[var(--color-neo-text-primary)]">{formatDate(c.createdAt)}</div>
               </div>
             </div>
-          </div>
+            </div>
+
+            {/* Action buttons */}
+            <div className="grid grid-cols-3 gap-2 px-4 pb-4 pt-1">
+              <button
+                type="button"
+                onClick={(e) => { e.stopPropagation(); onAddBill(c); }}
+                className="flex flex-col items-center gap-1 rounded-xl bg-[var(--color-neo-primary)]/10 py-2.5 text-[var(--color-neo-primary)] transition-all active:scale-95 hover:bg-[var(--color-neo-primary)]/18"
+              >
+                <FileText size={16} />
+                <span className="text-[10px] font-semibold">Add Bill</span>
+              </button>
+              <button
+                type="button"
+                onClick={(e) => { e.stopPropagation(); onEdit(c); }}
+                className="flex flex-col items-center gap-1 rounded-xl bg-[var(--color-neo-warning)]/10 py-2.5 text-[var(--color-neo-warning)] transition-all active:scale-95 hover:bg-[var(--color-neo-warning)]/18"
+              >
+                <Edit2 size={16} />
+                <span className="text-[10px] font-semibold">Edit</span>
+              </button>
+              <button
+                type="button"
+                onClick={(e) => { e.stopPropagation(); onDelete(c); }}
+                className="flex flex-col items-center gap-1 rounded-xl bg-[var(--color-neo-danger)]/10 py-2.5 text-[var(--color-neo-danger)] transition-all active:scale-95 hover:bg-[var(--color-neo-danger)]/18"
+              >
+                <Trash2 size={16} />
+                <span className="text-[10px] font-semibold">Delete</span>
+              </button>
+            </div>
+          </>
         );
 
         return (
@@ -126,33 +155,7 @@ function CustomerCard({ customer, onNavigate, onEdit, onDelete, onAddBill }) {
         );
       })()}
 
-      {/* Action buttons - always visible */}
-      <div className="grid grid-cols-3 gap-2 px-4 pb-4 border-t border-[var(--color-neo-secondary)]/10 pt-4 mt-1">
-        <button
-          type="button"
-          onClick={(e) => { e.stopPropagation(); onAddBill(c); }}
-          className="flex flex-col items-center gap-1 rounded-xl bg-[var(--color-neo-primary)]/10 py-2.5 text-[var(--color-neo-primary)] transition-all active:scale-95 hover:bg-[var(--color-neo-primary)]/18"
-        >
-          <FileText size={16} />
-          <span className="text-[10px] font-semibold">Add Bill</span>
-        </button>
-        <button
-          type="button"
-          onClick={(e) => { e.stopPropagation(); onEdit(c); }}
-          className="flex flex-col items-center gap-1 rounded-xl bg-[var(--color-neo-warning)]/10 py-2.5 text-[var(--color-neo-warning)] transition-all active:scale-95 hover:bg-[var(--color-neo-warning)]/18"
-        >
-          <Edit2 size={16} />
-          <span className="text-[10px] font-semibold">Edit</span>
-        </button>
-        <button
-          type="button"
-          onClick={(e) => { e.stopPropagation(); onDelete(c); }}
-          className="flex flex-col items-center gap-1 rounded-xl bg-[var(--color-neo-danger)]/10 py-2.5 text-[var(--color-neo-danger)] transition-all active:scale-95 hover:bg-[var(--color-neo-danger)]/18"
-        >
-          <Trash2 size={16} />
-          <span className="text-[10px] font-semibold">Delete</span>
-        </button>
-      </div>
+
     </motion.div>
   )
 }
