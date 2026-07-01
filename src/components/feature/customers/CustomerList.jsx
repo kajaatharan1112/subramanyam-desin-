@@ -62,8 +62,9 @@ function CustomerCard({ customer, onNavigate, onEdit, onDelete, onAddBill }) {
       {/* Detail tabs – small chips */}
       {(() => {
         const detailContent = (
-          <div className="px-4 pb-3 space-y-2 border-t border-[var(--color-neo-secondary)]/10 pt-3">
-            {/* Phone */}
+          <>
+            <div className="px-4 pb-3 space-y-2 border-t border-[var(--color-neo-secondary)]/10 pt-3">
+              {/* Phone */}
             <div className="flex items-center gap-2.5 rounded-xl bg-[var(--color-neo-surface)] px-3 py-2.5 shadow-[var(--shadow-neo-pressed)]">
               <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-[var(--color-neo-bg)] text-[var(--color-neo-primary)] shadow-sm shrink-0">
                 <Phone size={13} />
