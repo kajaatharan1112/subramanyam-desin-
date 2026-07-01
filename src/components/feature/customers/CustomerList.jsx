@@ -24,8 +24,10 @@ function CustomerCard({ customer, onNavigate, onEdit, onDelete, onAddBill }) {
     >
       {/* Card Header – always visible */}
       <div
-        className="flex items-center gap-3 p-4 cursor-pointer select-none"
-        onClick={() => setExpanded((v) => !v)}
+        className="flex items-center gap-3 p-4 cursor-pointer md:cursor-default select-none"
+        onClick={() => {
+          if (window.innerWidth < 768) setExpanded((v) => !v);
+        }}
       >
         {/* Avatar */}
         <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-[var(--color-neo-primary)] to-[#8b5cf6] font-bold text-white text-sm shadow-sm">
@@ -51,62 +53,78 @@ function CustomerCard({ customer, onNavigate, onEdit, onDelete, onAddBill }) {
           {c.active ? 'Active' : 'Inactive'}
         </span>
 
-        {/* Expand toggle */}
-        <span className="text-[var(--color-neo-text-secondary)] ml-1">
+        {/* Expand toggle (Mobile only) */}
+        <span className="text-[var(--color-neo-text-secondary)] ml-1 md:hidden">
           {expanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
         </span>
       </div>
 
-      {/* Expandable Details */}
-      <AnimatePresence initial={false}>
-        {expanded && (
-          <motion.div
-            key="details"
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.22, ease: 'easeInOut' }}
-            style={{ overflow: 'hidden' }}
-          >
-            {/* Detail tabs – small chips */}
-            <div className="px-4 pb-3 space-y-2 border-t border-[var(--color-neo-secondary)]/10 pt-3">
-              {/* Phone */}
-              <div className="flex items-center gap-2.5 rounded-xl bg-[var(--color-neo-surface)] px-3 py-2.5 shadow-[var(--shadow-neo-pressed)]">
-                <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-[var(--color-neo-bg)] text-[var(--color-neo-primary)] shadow-sm shrink-0">
-                  <Phone size={13} />
-                </span>
-                <div className="min-w-0">
-                  <div className="text-[10px] font-semibold uppercase tracking-wider text-[var(--color-neo-text-secondary)]">Phone</div>
-                  <div className="text-sm font-medium text-[var(--color-neo-text-primary)] truncate">{c.phone}</div>
-                </div>
-              </div>
-
-              {/* Email */}
-              <div className="flex items-center gap-2.5 rounded-xl bg-[var(--color-neo-surface)] px-3 py-2.5 shadow-[var(--shadow-neo-pressed)]">
-                <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-[var(--color-neo-bg)] text-[var(--color-neo-primary)] shadow-sm shrink-0">
-                  <Mail size={13} />
-                </span>
-                <div className="min-w-0">
-                  <div className="text-[10px] font-semibold uppercase tracking-wider text-[var(--color-neo-text-secondary)]">Email</div>
-                  <div className="text-sm font-medium text-[var(--color-neo-text-primary)] truncate">{c.email}</div>
-                </div>
-              </div>
-
-              {/* Joined */}
-              <div className="flex items-center gap-2.5 rounded-xl bg-[var(--color-neo-surface)] px-3 py-2.5 shadow-[var(--shadow-neo-pressed)]">
-                <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-[var(--color-neo-bg)] text-[var(--color-neo-primary)] shadow-sm shrink-0">
-                  <Calendar size={13} />
-                </span>
-                <div className="min-w-0">
-                  <div className="text-[10px] font-semibold uppercase tracking-wider text-[var(--color-neo-text-secondary)]">Joined</div>
-                  <div className="text-sm font-medium text-[var(--color-neo-text-primary)]">{formatDate(c.createdAt)}</div>
-                </div>
+      {/* Detail tabs – small chips */}
+      {(() => {
+        const detailContent = (
+          <div className="px-4 pb-3 space-y-2 border-t border-[var(--color-neo-secondary)]/10 pt-3">
+            {/* Phone */}
+            <div className="flex items-center gap-2.5 rounded-xl bg-[var(--color-neo-surface)] px-3 py-2.5 shadow-[var(--shadow-neo-pressed)]">
+              <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-[var(--color-neo-bg)] text-[var(--color-neo-primary)] shadow-sm shrink-0">
+                <Phone size={13} />
+              </span>
+              <div className="min-w-0">
+                <div className="text-[10px] font-semibold uppercase tracking-wider text-[var(--color-neo-text-secondary)]">Phone</div>
+                <div className="text-sm font-medium text-[var(--color-neo-text-primary)] truncate">{c.phone}</div>
               </div>
             </div>
 
-          </motion.div>
-        )}
-      </AnimatePresence>
+            {/* Email */}
+            <div className="flex items-center gap-2.5 rounded-xl bg-[var(--color-neo-surface)] px-3 py-2.5 shadow-[var(--shadow-neo-pressed)]">
+              <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-[var(--color-neo-bg)] text-[var(--color-neo-primary)] shadow-sm shrink-0">
+                <Mail size={13} />
+              </span>
+              <div className="min-w-0">
+                <div className="text-[10px] font-semibold uppercase tracking-wider text-[var(--color-neo-text-secondary)]">Email</div>
+                <div className="text-sm font-medium text-[var(--color-neo-text-primary)] truncate">{c.email}</div>
+              </div>
+            </div>
+
+            {/* Joined */}
+            <div className="flex items-center gap-2.5 rounded-xl bg-[var(--color-neo-surface)] px-3 py-2.5 shadow-[var(--shadow-neo-pressed)]">
+              <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-[var(--color-neo-bg)] text-[var(--color-neo-primary)] shadow-sm shrink-0">
+                <Calendar size={13} />
+              </span>
+              <div className="min-w-0">
+                <div className="text-[10px] font-semibold uppercase tracking-wider text-[var(--color-neo-text-secondary)]">Joined</div>
+                <div className="text-sm font-medium text-[var(--color-neo-text-primary)]">{formatDate(c.createdAt)}</div>
+              </div>
+            </div>
+          </div>
+        );
+
+        return (
+          <>
+            {/* Mobile (collapsible) */}
+            <div className="md:hidden">
+              <AnimatePresence initial={false}>
+                {expanded && (
+                  <motion.div
+                    key="details"
+                    initial={{ height: 0, opacity: 0 }}
+                    animate={{ height: 'auto', opacity: 1 }}
+                    exit={{ height: 0, opacity: 0 }}
+                    transition={{ duration: 0.22, ease: 'easeInOut' }}
+                    style={{ overflow: 'hidden' }}
+                  >
+                    {detailContent}
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+            
+            {/* Desktop (always visible) */}
+            <div className="hidden md:block">
+              {detailContent}
+            </div>
+          </>
+        );
+      })()}
 
       {/* Action buttons - always visible */}
       <div className="grid grid-cols-3 gap-2 px-4 pb-4 border-t border-[var(--color-neo-secondary)]/10 pt-4 mt-1">
