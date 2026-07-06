@@ -75,7 +75,8 @@ export const MOCK_BILLS = [
     billNumber: 'INV-2026-000001',
     customerId: 'cust-001',
     customerName: 'Arun Kumar',
-    status: 'completed',
+    stage: 'First process',
+    paymentStatus: 'payed',
     priority: 'medium',
     items: [
       { name: 'Banner Printing (6x3 ft)', qty: 5, price: 1200, total: 6000 },
@@ -91,7 +92,8 @@ export const MOCK_BILLS = [
     billNumber: 'INV-2026-000002',
     customerId: 'cust-002',
     customerName: 'Priya Sharma',
-    status: 'in_progress',
+    stage: 'Second process',
+    paymentStatus: 'non payed',
     priority: 'high',
     items: [
       { name: 'T-Shirt Printing (Custom)', qty: 50, price: 350, total: 17500 },
@@ -107,7 +109,8 @@ export const MOCK_BILLS = [
     billNumber: 'INV-2026-000003',
     customerId: 'cust-003',
     customerName: 'Ravi Patel',
-    status: 'quality_check',
+    stage: 'Third process',
+    paymentStatus: 'payed',
     priority: 'medium',
     items: [
       { name: 'Flex Printing (10x5 ft)', qty: 3, price: 3500, total: 10500 },
@@ -122,7 +125,8 @@ export const MOCK_BILLS = [
     billNumber: 'INV-2026-000004',
     customerId: 'cust-001',
     customerName: 'Arun Kumar',
-    status: 'created',
+    stage: 'Packaging',
+    paymentStatus: 'non payed',
     priority: 'low',
     items: [
       { name: 'Visiting Cards (Standard)', qty: 1000, price: 3, total: 3000 },
@@ -139,7 +143,8 @@ export const MOCK_BILLS = [
     billNumber: 'INV-2026-000005',
     customerId: 'cust-004',
     customerName: 'Deepa Menon',
-    status: 'ready_delivery',
+    stage: 'ready to delivery',
+    paymentStatus: 'payed',
     priority: 'urgent',
     items: [
       { name: 'Stage Banner (20x10 ft)', qty: 1, price: 15000, total: 15000 },
@@ -156,7 +161,8 @@ export const MOCK_BILLS = [
     billNumber: 'INV-2026-000006',
     customerId: 'cust-006',
     customerName: 'Meena Sundaram',
-    status: 'design_started',
+    stage: 'First process',
+    paymentStatus: 'non payed',
     priority: 'medium',
     items: [
       { name: 'Photo Album (Custom)', qty: 2, price: 5000, total: 10000 },
@@ -171,7 +177,8 @@ export const MOCK_BILLS = [
     billNumber: 'INV-2026-000007',
     customerId: 'cust-002',
     customerName: 'Priya Sharma',
-    status: 'delivered',
+    stage: 'ready to delivery',
+    paymentStatus: 'payed',
     priority: 'low',
     items: [
       { name: 'Poster Printing (A2)', qty: 20, price: 150, total: 3000 },
@@ -186,7 +193,8 @@ export const MOCK_BILLS = [
     billNumber: 'INV-2026-000008',
     customerId: 'cust-005',
     customerName: 'Karthik Raj',
-    status: 'completed',
+    stage: 'Second process',
+    paymentStatus: 'payed',
     priority: 'medium',
     items: [
       { name: 'Pamphlet Printing (A5)', qty: 5000, price: 2, total: 10000 },

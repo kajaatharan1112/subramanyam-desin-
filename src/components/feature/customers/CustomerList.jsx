@@ -44,11 +44,10 @@ function CustomerCard({ customer, onNavigate, onEdit, onDelete, onAddBill }) {
         </div>
 
         {/* Status badge */}
-        <span className={`flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider shrink-0 ${
-          c.active
+        <span className={`flex items-center gap-1 rounded-full px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider shrink-0 ${c.active
             ? 'bg-[var(--color-neo-success)]/12 text-[var(--color-neo-success)]'
             : 'bg-gray-400/12 text-gray-400'
-        }`}>
+          }`}>
           <span className={`h-1.5 w-1.5 rounded-full ${c.active ? 'bg-[var(--color-neo-success)]' : 'bg-gray-400'}`} />
           {c.active ? 'Active' : 'Inactive'}
         </span>
@@ -65,37 +64,37 @@ function CustomerCard({ customer, onNavigate, onEdit, onDelete, onAddBill }) {
           <>
             <div className="px-4 pb-3 space-y-2 border-t border-[var(--color-neo-secondary)]/10 pt-3">
               {/* Phone */}
-            <div className="flex items-center gap-2.5 rounded-xl bg-[var(--color-neo-surface)] px-3 py-2.5 shadow-[var(--shadow-neo-pressed)]">
-              <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-[var(--color-neo-bg)] text-[var(--color-neo-primary)] shadow-sm shrink-0">
-                <Phone size={13} />
-              </span>
-              <div className="min-w-0">
-                <div className="text-[10px] font-semibold uppercase tracking-wider text-[var(--color-neo-text-secondary)]">Phone</div>
-                <div className="text-sm font-medium text-[var(--color-neo-text-primary)] truncate">{c.phone}</div>
+              <div className="flex items-center gap-2.5 rounded-xl bg-[var(--color-neo-surface)] px-3 py-2.5 shadow-[var(--shadow-neo-pressed)]">
+                <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-[var(--color-neo-bg)] text-[var(--color-neo-primary)] shadow-sm shrink-0">
+                  <Phone size={13} />
+                </span>
+                <div className="min-w-0">
+                  <div className="text-[10px] font-semibold uppercase tracking-wider text-[var(--color-neo-text-secondary)]">Phone</div>
+                  <div className="text-sm font-medium text-[var(--color-neo-text-primary)] truncate">{c.phone}</div>
+                </div>
               </div>
-            </div>
 
-            {/* Email */}
-            <div className="flex items-center gap-2.5 rounded-xl bg-[var(--color-neo-surface)] px-3 py-2.5 shadow-[var(--shadow-neo-pressed)]">
-              <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-[var(--color-neo-bg)] text-[var(--color-neo-primary)] shadow-sm shrink-0">
-                <Mail size={13} />
-              </span>
-              <div className="min-w-0">
-                <div className="text-[10px] font-semibold uppercase tracking-wider text-[var(--color-neo-text-secondary)]">Email</div>
-                <div className="text-sm font-medium text-[var(--color-neo-text-primary)] truncate">{c.email}</div>
+              {/* Email */}
+              <div className="flex items-center gap-2.5 rounded-xl bg-[var(--color-neo-surface)] px-3 py-2.5 shadow-[var(--shadow-neo-pressed)]">
+                <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-[var(--color-neo-bg)] text-[var(--color-neo-primary)] shadow-sm shrink-0">
+                  <Mail size={13} />
+                </span>
+                <div className="min-w-0">
+                  <div className="text-[10px] font-semibold uppercase tracking-wider text-[var(--color-neo-text-secondary)]">Email</div>
+                  <div className="text-sm font-medium text-[var(--color-neo-text-primary)] truncate">{c.email}</div>
+                </div>
               </div>
-            </div>
 
-            {/* Joined */}
-            <div className="flex items-center gap-2.5 rounded-xl bg-[var(--color-neo-surface)] px-3 py-2.5 shadow-[var(--shadow-neo-pressed)]">
-              <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-[var(--color-neo-bg)] text-[var(--color-neo-primary)] shadow-sm shrink-0">
-                <Calendar size={13} />
-              </span>
-              <div className="min-w-0">
-                <div className="text-[10px] font-semibold uppercase tracking-wider text-[var(--color-neo-text-secondary)]">Joined</div>
-                <div className="text-sm font-medium text-[var(--color-neo-text-primary)]">{formatDate(c.createdAt)}</div>
+              {/* Joined */}
+              <div className="flex items-center gap-2.5 rounded-xl bg-[var(--color-neo-surface)] px-3 py-2.5 shadow-[var(--shadow-neo-pressed)]">
+                <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-[var(--color-neo-bg)] text-[var(--color-neo-primary)] shadow-sm shrink-0">
+                  <Calendar size={13} />
+                </span>
+                <div className="min-w-0">
+                  <div className="text-[10px] font-semibold uppercase tracking-wider text-[var(--color-neo-text-secondary)]">Joined</div>
+                  <div className="text-sm font-medium text-[var(--color-neo-text-primary)]">{formatDate(c.createdAt)}</div>
+                </div>
               </div>
-            </div>
             </div>
 
             {/* Action buttons */}
@@ -155,7 +154,7 @@ function CustomerCard({ customer, onNavigate, onEdit, onDelete, onAddBill }) {
                 )}
               </AnimatePresence>
             </div>
-            
+
             {/* Desktop (always visible) */}
             <div className="hidden md:block">
               {detailContent}
@@ -243,7 +242,7 @@ export default function CustomerList({ onNavigate }) {
           ))}
         </AnimatePresence>
       </div>
-      
+
       {filtered.length === 0 && (
         <div className="py-16 text-center text-[var(--color-neo-text-secondary)] font-medium w-full">
           No customers found matching your search.

@@ -21,8 +21,8 @@ const itemVariants = {
 
 export default function AdminDashboard({ onNavigate }) {
   const totalRevenue = MOCK_BILLS.reduce((sum, b) => sum + b.totalAmount, 0)
-  const pendingOrders = MOCK_BILLS.filter((b) => !['completed', 'delivered'].includes(b.status)).length
-  const completedOrders = MOCK_BILLS.filter((b) => b.status === 'completed').length
+  const completedOrders = MOCK_BILLS.filter((b) => b.stage === 'ready to delivery').length
+  const pendingOrders = MOCK_BILLS.length - completedOrders
   const todaysOrders = MOCK_BILLS.filter((b) => b.createdAt === '2026-06-29').length || 2
 
   const stats = [
@@ -35,7 +35,7 @@ export default function AdminDashboard({ onNavigate }) {
   ]
 
   return (
-    <motion.div 
+    <motion.div
       variants={containerVariants}
       initial="hidden"
       animate="show"
@@ -80,7 +80,7 @@ export default function AdminDashboard({ onNavigate }) {
 
       {/* Two Column Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        
+
         {/* Activity Log */}
         <motion.div variants={itemVariants}>
           <Card className="h-full">
@@ -127,7 +127,7 @@ export default function AdminDashboard({ onNavigate }) {
                     </div>
                     <div className="text-right">
                       <p className="font-bold text-[var(--color-neo-primary)]">{formatCurrency(b.totalAmount)}</p>
-                      <p className="text-xs font-semibold capitalize text-[var(--color-neo-text-secondary)]">{b.status.replace('_', ' ')}</p>
+                      <p className="text-xs font-semibold capitalize text-[var(--color-neo-text-secondary)]">{b.stage}</p>
                     </div>
                   </div>
                 ))}

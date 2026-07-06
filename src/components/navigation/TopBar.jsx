@@ -19,11 +19,11 @@ export default function TopBar({ currentView, onToggleSidebar, onLogout }) {
   const title = VIEW_TITLES[currentView] || 'Dashboard'
 
   return (
-    <header className="fixed left-0 right-0 top-0 z-40 flex h-[64px] items-center justify-between border-b border-[var(--color-neo-secondary)]/10 bg-[var(--color-neo-bg)] px-5 md:left-[72px]">
+    <header className="fixed left-0 right-0 top-0 z-40 flex h-[64px] items-center justify-between border-b border-white/10 bg-[var(--color-neo-text-primary)] px-5 md:left-[72px] shadow-sm">
 
       {/* Left – page title */}
       <div className="flex items-center">
-        <h2 className="text-base font-bold tracking-tight text-[var(--color-neo-text-primary)]">
+        <h2 className="text-base font-bold tracking-tight text-white">
           {title}
         </h2>
       </div>
@@ -33,25 +33,22 @@ export default function TopBar({ currentView, onToggleSidebar, onLogout }) {
         {/* Notification bell */}
         <button
           type="button"
-          className="relative flex h-9 w-9 items-center justify-center rounded-lg text-[var(--color-neo-text-secondary)] transition-colors hover:bg-[var(--color-neo-surface)] hover:text-[var(--color-neo-text-primary)]"
+          className="relative flex h-9 w-9 items-center justify-center rounded-lg text-white/70 transition-colors hover:bg-white/10 hover:text-white"
         >
           <Bell size={18} />
-          <span className="absolute right-2 top-2 h-2 w-2 rounded-full bg-[var(--color-neo-danger)] ring-[1.5px] ring-[var(--color-neo-bg)]" />
+          <span className="absolute right-2 top-2 h-2 w-2 rounded-full bg-[var(--color-neo-danger)] ring-[1.5px] ring-[var(--color-neo-text-primary)]" />
         </button>
 
         {/* Divider */}
-        <div className="mx-1 hidden h-6 w-px bg-[var(--color-neo-secondary)]/20 md:block" />
+        <div className="mx-1 hidden h-6 w-px bg-white/20 md:block" />
 
-        {/* User avatar + logout (desktop) */}
+        {/* User logout (desktop) */}
         <div className="hidden md:flex items-center gap-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-[var(--color-neo-primary)] to-[#8b5cf6] text-[10px] font-bold text-white shadow-sm">
-            AD
-          </div>
           <button
             type="button"
             onClick={onLogout}
             title="Logout"
-            className="flex h-9 w-9 items-center justify-center rounded-lg text-[var(--color-neo-text-secondary)] transition-colors hover:bg-[var(--color-neo-surface)] hover:text-[var(--color-neo-danger)]"
+            className="flex h-9 w-9 items-center justify-center rounded-lg text-white/70 transition-colors hover:bg-white/10 hover:text-[var(--color-neo-danger)]"
           >
             <LogOut size={17} />
           </button>

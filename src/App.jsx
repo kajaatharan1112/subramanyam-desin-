@@ -8,6 +8,7 @@ import LoginPage from './components/feature/auth/LoginPage.jsx'
 import AdminDashboard from './components/feature/dashboard/AdminDashboard.jsx'
 import CustomerDashboard from './components/feature/dashboard/CustomerDashboard.jsx'
 import CustomerList from './components/feature/customers/CustomerList.jsx'
+import BillList from './components/feature/bills/BillList.jsx'
 import ToastContainer from './components/feedback/Toast.jsx'
 import { useLocalStorage } from './hooks/useLocalStorage.js'
 
@@ -45,7 +46,7 @@ export default function App() {
   }
 
   return (
-    <div className="flex h-dvh overflow-hidden bg-[var(--color-neo-bg)]">
+    <div className="flex h-dvh overflow-hidden bg-[var(--color-neo-bg)] md:bg-[var(--color-neo-text-primary)]">
       <Sidebar
         currentView={currentView}
         onNavigate={handleNavigate}
@@ -54,7 +55,7 @@ export default function App() {
         sidebarOpen={sidebarOpen}
       />
 
-      <div className="flex h-full flex-1 flex-col overflow-hidden md:pl-[72px] pb-[calc(54px+3mm+env(safe-area-inset-bottom,0px))] md:pb-0">
+      <div className="flex h-full flex-1 flex-col overflow-hidden md:pl-[72px] pt-[64px] pb-[calc(54px+3mm+env(safe-area-inset-bottom,0px))] md:pb-0">
         <TopBar
           currentView={currentView}
           onToggleSidebar={toggleSidebar}
@@ -63,13 +64,13 @@ export default function App() {
 
         {/* Overlay for mobile sidebar */}
         {sidebarOpen && (
-          <div 
+          <div
             className="fixed inset-0 z-40 bg-black/20 backdrop-blur-sm md:hidden"
             onClick={() => setSidebarOpen(false)}
           />
         )}
 
-        <main className="flex-1 pt-[64px] overflow-y-auto min-h-0">
+        <main className="flex-1 overflow-y-auto min-h-0 bg-[var(--color-neo-bg)] md:rounded-tl-[40px]">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentView}
@@ -81,9 +82,10 @@ export default function App() {
               {currentView === VIEWS.ADMIN_DASHBOARD && <AdminDashboard onNavigate={handleNavigate} />}
               {currentView === VIEWS.CUSTOMER_LIST && <CustomerList onNavigate={handleNavigate} />}
               {currentView === VIEWS.CUST_DASHBOARD && <CustomerDashboard onNavigate={handleNavigate} />}
-              
+              {currentView === VIEWS.BILL_LIST && <BillList onNavigate={handleNavigate} />}
+
               {/* Placeholders for unbuilt routes */}
-              {[VIEWS.CUSTOMER_DETAIL, VIEWS.BILL_LIST, VIEWS.BILL_CREATE, VIEWS.BILL_DETAIL, VIEWS.ORDER_TRACKING, VIEWS.REPORTS, VIEWS.SETTINGS, VIEWS.CUST_BILLS, VIEWS.CUST_ORDER_STATUS].includes(currentView) && (
+              {[VIEWS.CUSTOMER_DETAIL, VIEWS.BILL_CREATE, VIEWS.BILL_DETAIL, VIEWS.ORDER_TRACKING, VIEWS.REPORTS, VIEWS.SETTINGS, VIEWS.CUST_BILLS, VIEWS.CUST_ORDER_STATUS].includes(currentView) && (
                 <div className="flex h-full items-center justify-center p-8">
                   <div className="text-center">
                     <h2 className="mb-2 text-2xl font-bold text-[var(--color-neo-text-primary)]">Coming Soon</h2>
