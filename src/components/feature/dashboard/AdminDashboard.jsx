@@ -6,6 +6,17 @@ import { VIEWS } from '../../../constants/routes.js'
 import PrimaryButton from '../../buttons/PrimaryButton.jsx'
 import { Card, CardHeader, CardTitle, CardContent } from '../../ui/Card.jsx'
 
+/* ─── Helper: Get customer name from ID ────────────────────────── */
+function getCustomerName(customerId) {
+  const customer = MOCK_CUSTOMERS.find(c => c.id === customerId)
+  return customer?.name || 'Unknown Customer'
+}
+
+/* ─── Helper: Generate bill number from ID ────────────────────────── */
+function getBillNumber(billId) {
+  return `INV-${billId.replace('bill-', '').toUpperCase()}`
+}
+
 const containerVariants = {
   hidden: { opacity: 0 },
   show: {
@@ -20,10 +31,10 @@ const itemVariants = {
 }
 
 export default function AdminDashboard({ onNavigate }) {
-  const totalRevenue = MOCK_BILLS.reduce((sum, b) => sum + b.totalAmount, 0)
-  const completedOrders = MOCK_BILLS.filter((b) => b.stage === 'ready to delivery').length
+  const totalRevenue = MOCK_BILLS.reduce((sum, b) => sum + (b.totalAmount || 0), 0)
+  const completedOrders = MOCK_BILLS.filter((b) => b.status === 'completed').length
   const pendingOrders = MOCK_BILLS.length - completedOrders
-  const todaysOrders = MOCK_BILLS.filter((b) => b.createdAt === '2026-06-29').length || 2
+  const todaysOrders = MOCK_BILLS.filter((b) => b.issueDate === '2026-06-29').length || 2
 
   const stats = [
     { label: 'Total Customers', value: MOCK_CUSTOMERS.length, icon: <Users size={22} className="text-[var(--color-neo-primary)]" /> },
@@ -118,16 +129,16 @@ export default function AdminDashboard({ onNavigate }) {
                 {MOCK_BILLS.slice(0, 4).map((b) => (
                   <div
                     key={b.id}
-                    onClick={() => onNavigate(VIEWS.BILL_DETAIL, { billId: b.id })}
+                    onClick={() => onNavigate(VIEWS.BILL_LIST)}
                     className="flex cursor-pointer items-center justify-between rounded-[var(--radius-neo-md)] bg-[var(--color-neo-bg)] p-4 shadow-[var(--shadow-neo-pressed)] transition-all hover:bg-[var(--color-neo-surface)] hover:shadow-[var(--shadow-neo-soft)]"
                   >
                     <div>
-                      <p className="font-semibold text-[var(--color-neo-text-primary)]">{b.billNumber}</p>
-                      <p className="text-xs font-medium text-[var(--color-neo-text-secondary)]">{b.customerName}</p>
+                      <p className="font-semibold text-[var(--color-neo-text-primary)]">{getBillNumber(b.id)}</p>
+                      <p className="text-xs font-medium text-[var(--color-neo-text-secondary)]">{getCustomerName(b.customerId)}</p>
                     </div>
                     <div className="text-right">
-                      <p className="font-bold text-[var(--color-neo-primary)]">{formatCurrency(b.totalAmount)}</p>
-                      <p className="text-xs font-semibold capitalize text-[var(--color-neo-text-secondary)]">{b.stage}</p>
+                      <p className="font-bold text-[var(--color-neo-primary)]">{b.totalAmount ? formatCurrency(b.totalAmount) : 'Pending'}</p>
+                      <p className="text-xs font-semibold capitalize text-[var(--color-neo-text-secondary)]">{b.status}</p>
                     </div>
                   </div>
                 ))}

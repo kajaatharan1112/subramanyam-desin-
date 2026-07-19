@@ -8,7 +8,7 @@ import LoginPage from './components/feature/auth/LoginPage.jsx'
 import AdminDashboard from './components/feature/dashboard/AdminDashboard.jsx'
 import CustomerDashboard from './components/feature/dashboard/CustomerDashboard.jsx'
 import CustomerList from './components/feature/customers/CustomerList.jsx'
-import BillList from './components/feature/bills/BillList.jsx'
+import BillList from './components/feature/bills/BillList.tsx'
 import ToastContainer from './components/feedback/Toast.jsx'
 import { useLocalStorage } from './hooks/useLocalStorage.js'
 
@@ -82,10 +82,11 @@ export default function App() {
               {currentView === VIEWS.ADMIN_DASHBOARD && <AdminDashboard onNavigate={handleNavigate} />}
               {currentView === VIEWS.CUSTOMER_LIST && <CustomerList onNavigate={handleNavigate} />}
               {currentView === VIEWS.CUST_DASHBOARD && <CustomerDashboard onNavigate={handleNavigate} />}
-              {currentView === VIEWS.BILL_LIST && <BillList onNavigate={handleNavigate} />}
+              {currentView === VIEWS.BILL_LIST && <BillList role={role} onNavigate={handleNavigate} />}
+              {currentView === VIEWS.CUST_BILLS && <BillList role={role} onNavigate={handleNavigate} />}
 
               {/* Placeholders for unbuilt routes */}
-              {[VIEWS.CUSTOMER_DETAIL, VIEWS.BILL_CREATE, VIEWS.BILL_DETAIL, VIEWS.ORDER_TRACKING, VIEWS.REPORTS, VIEWS.SETTINGS, VIEWS.CUST_BILLS, VIEWS.CUST_ORDER_STATUS].includes(currentView) && (
+              {[VIEWS.CUSTOMER_DETAIL, VIEWS.BILL_CREATE, VIEWS.BILL_DETAIL, VIEWS.ORDER_TRACKING, VIEWS.REPORTS, VIEWS.SETTINGS, VIEWS.CUST_ORDER_STATUS].includes(currentView) && (
                 <div className="flex h-full items-center justify-center p-8">
                   <div className="text-center">
                     <h2 className="mb-2 text-2xl font-bold text-[var(--color-neo-text-primary)]">Coming Soon</h2>

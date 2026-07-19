@@ -1,51 +1,57 @@
 import type { WorkflowTemplate, Bill } from '../types';
+import type { OrganizationSettings } from '../types/organization-settings';
+export { MOCK_BILL_STATUSES } from './bill-statuses';
 
-// ── Mock Workflow Templates ─────────────────────────────────────────
-export const WORKFLOW_TEMPLATES: WorkflowTemplate[] = [
+export const MOCK_ORG_SETTINGS: OrganizationSettings = {
+  organizationId: 'org-1',
+  organizationName: 'ONEVO Billing',
+  currencyCode: 'LKR',
+  currencyLocale: 'en-LK',
+  currencyDisplayMode: 'code',
+  defaultBillStatusId: 'status-unpaid',
+  defaultWorkflowId: 'wf-printing-standard'
+};
+
+export const MOCK_WORKFLOWS: WorkflowTemplate[] = [
   {
-    id: 'wf-1',
-    workType: 'Paper Printing',
-    name: 'Standard Paper Printing',
-    stages: [
-      { id: 'stage-1', name: 'Preparation', order: 1, isFinalStage: false },
-      { id: 'stage-2', name: 'Typing', order: 2, isFinalStage: false },
-      { id: 'stage-3', name: 'Proof', order: 3, isFinalStage: false },
-      { id: 'stage-4', name: 'Printing', order: 4, isFinalStage: false },
-      { id: 'stage-5', name: 'Packaging', order: 5, isFinalStage: false },
-      { id: 'stage-6', name: 'Ready', order: 6, isFinalStage: true },
-    ],
-    status: 'active',
+    id: 'wf-printing-standard',
+    name: 'Standard Production Workflow',
+    description: 'General 5-stage printing production workflow',
+    isActive: true,
     createdAt: '2024-06-15',
     updatedAt: '2024-07-01',
+    stages: [
+      { id: 'stage-typing', name: 'Typing', order: 1, description: 'Content entry', colorToken: 'neutral', isFinal: false },
+      { id: 'stage-proof', name: 'Proof', order: 2, description: 'Review phase', colorToken: 'warning', isFinal: false },
+      { id: 'stage-printing', name: 'Printing', order: 3, description: 'Physical printing', colorToken: 'primary', isFinal: false },
+      { id: 'stage-packaging', name: 'Packaging', order: 4, description: 'Sorting & packing', colorToken: 'warning', isFinal: false },
+      { id: 'stage-ready', name: 'Ready', order: 5, description: 'Ready for pickup', colorToken: 'success', isFinal: true },
+    ]
   },
   {
-    id: 'wf-2',
-    workType: 'Book Printing',
-    name: 'Book Publishing',
-    stages: [
-      { id: 'stage-7', name: 'Content Review', order: 1, isFinalStage: false },
-      { id: 'stage-8', name: 'Design', order: 2, isFinalStage: false },
-      { id: 'stage-9', name: 'Printing', order: 3, isFinalStage: false },
-      { id: 'stage-10', name: 'Binding', order: 4, isFinalStage: false },
-      { id: 'stage-11', name: 'Quality', order: 5, isFinalStage: false },
-      { id: 'stage-12', name: 'Dispatch', order: 6, isFinalStage: true },
-    ],
-    status: 'active',
+    id: 'wf-simple',
+    name: 'Simple 3-Stage Workflow',
+    description: 'For quick turnaround items',
+    isActive: true,
     createdAt: '2024-06-20',
     updatedAt: '2024-07-01',
-  },
+    stages: [
+      { id: 'stage-prep', name: 'Preparation', order: 1, description: null, colorToken: 'warning', isFinal: false },
+      { id: 'stage-exec', name: 'Execution', order: 2, description: null, colorToken: 'primary', isFinal: false },
+      { id: 'stage-done', name: 'Done', order: 3, description: null, colorToken: 'success', isFinal: true },
+    ]
+  }
 ];
 
-// ── Mock Customers ──────────────────────────────────────────────────
 export const MOCK_CUSTOMERS = [
   {
     id: 'cust-001',
     name: 'Arun Kumar',
     email: 'arun@example.com',
-    phone: '+91 98765 43210',
-    address: '12, Anna Nagar, Chennai',
-    company: 'AK Prints',
-    notes: 'Regular customer, prefers matte finish',
+    phone: '+94 77 000 0000',
+    address: 'Colombo 03',
+    company: 'AK Enterprises',
+    notes: 'Regular customer',
     createdAt: '2026-01-15',
     active: true,
   },
@@ -53,229 +59,131 @@ export const MOCK_CUSTOMERS = [
     id: 'cust-002',
     name: 'Priya Sharma',
     email: 'priya@example.com',
-    phone: '+91 87654 32109',
-    address: '45, MG Road, Bangalore',
+    phone: '+94 71 111 1111',
+    address: 'Kandy',
     company: 'Priya Designs',
     notes: 'Always needs rush delivery',
     createdAt: '2026-02-20',
     active: true,
-  },
-  {
-    id: 'cust-003',
-    name: 'Ravi Patel',
-    email: 'ravi@example.com',
-    phone: '+91 76543 21098',
-    address: '78, Jubilee Hills, Hyderabad',
-    company: 'Patel Enterprises',
-    notes: '',
-    createdAt: '2026-03-10',
-    active: true,
-  },
-  {
-    id: 'cust-004',
-    name: 'Deepa Menon',
-    email: 'deepa@example.com',
-    phone: '+91 65432 10987',
-    address: '23, Marine Drive, Kochi',
-    company: 'Deepa Events',
-    notes: 'Corporate events specialist',
-    createdAt: '2026-04-05',
-    active: true,
-  },
-  {
-    id: 'cust-005',
-    name: 'Karthik Raj',
-    email: 'karthik@example.com',
-    phone: '+91 54321 09876',
-    address: '56, T Nagar, Chennai',
-    company: 'KR Marketing',
-    notes: 'Bulk orders only',
-    createdAt: '2026-05-18',
-    active: false,
-  },
-  {
-    id: 'cust-006',
-    name: 'Meena Sundaram',
-    email: 'meena@example.com',
-    phone: '+91 43210 98765',
-    address: '90, Koramangala, Bangalore',
-    company: 'MS Studios',
-    notes: 'Prefers glossy finish for banners',
-    createdAt: '2026-06-01',
-    active: true,
-  },
+  }
 ];
 
-// ── Mock Bills ──────────────────────────────────────────────────────
 export const MOCK_BILLS: Bill[] = [
   {
     id: 'bill-001',
+    billNumber: 'INV-001',
     customerId: 'cust-001',
+    customerName: 'Arun Kumar',
+    customerEmail: 'arun@example.com',
+    customerPhone: '+94 77 000 0000',
+    billStatusId: 'status-partially-paid',
+    workflowId: 'wf-printing-standard',
+    orderDate: '2026-07-01T00:00:00Z',
+    deadline: '2026-08-01T00:00:00Z',
+    paidAmount: 5000,
+    notes: 'Deliver all completed papers together.',
+    createdAt: '2026-07-01T10:00:00Z',
+    updatedAt: '2026-07-02T10:00:00Z',
+    adjustments: [
+      {
+        id: 'adjustment-service',
+        label: 'Service Charge',
+        operation: 'ADD',
+        amount: 500,
+        displayOrder: 1
+      },
+      {
+        id: 'adjustment-discount',
+        label: 'Special Discount',
+        operation: 'SUBTRACT',
+        amount: 250,
+        displayOrder: 2
+      }
+    ],
     works: [
       {
-        id: 'work-1',
+        id: 'work-tamil-paper',
         billId: 'bill-001',
-        workName: 'Tamil Exam Paper',
-        workflowTemplateId: 'wf-1',
-        workflowName: 'Standard Paper Printing',
-        currentStageId: 'stage-3',
-        stageStatuses: [
-          { stageId: 'stage-1', stageName: 'Preparation', status: 'completed', completedAt: '2024-07-01' },
-          { stageId: 'stage-2', stageName: 'Typing', status: 'completed', completedAt: '2024-07-02' },
-          { stageId: 'stage-3', stageName: 'Proof', status: 'in_progress', completedAt: null },
-        ],
-        amount: 5000,
-        paymentStatus: 'pending',
-        createdAt: '2024-07-01',
+        name: 'Tamil Exam Paper Printing',
+        serviceCategory: 'Exam Paper Printing',
+        description: 'Tamil examination papers for the term assessment.',
+        unitLabel: 'copies',
+        unitCost: 5,
+        totalUnits: 1000,
+        completedUnits: 650,
+        currentStageId: 'stage-printing',
+        startDate: '2026-07-01T00:00:00Z',
+        deadline: '2026-07-25T00:00:00Z',
+        notes: null,
+        createdAt: '2026-07-01T10:00:00Z',
+        customAttributes: [
+          { id: 'attr-1', label: 'Paper Size', value: 'A4', displayOrder: 1 },
+          { id: 'attr-2', label: 'Colour Mode', value: 'Black and White', displayOrder: 2 },
+          { id: 'attr-3', label: 'Paper GSM', value: '80 GSM', displayOrder: 3 }
+        ]
       },
       {
-        id: 'work-2',
+        id: 'work-history-paper',
         billId: 'bill-001',
-        workName: 'English Exam Paper',
-        workflowTemplateId: 'wf-1',
-        workflowName: 'Standard Paper Printing',
-        currentStageId: 'stage-2',
-        stageStatuses: [
-          { stageId: 'stage-1', stageName: 'Preparation', status: 'completed', completedAt: '2024-07-01' },
-          { stageId: 'stage-2', stageName: 'Typing', status: 'in_progress', completedAt: null },
-        ],
-        amount: null,
-        paymentStatus: 'pending',
-        createdAt: '2024-07-02',
-      },
-    ],
-    totalAmount: null,
-    totalAmountStatus: 'hidden',
-    status: 'pending',
-    issueDate: '2024-07-01',
-    dueDate: '2024-08-01',
-    description: 'Exam papers printing for Q2 semester',
+        name: 'History Exam Paper Printing',
+        serviceCategory: 'Exam Paper Printing',
+        description: 'History examination papers.',
+        unitLabel: 'copies',
+        unitCost: 6,
+        totalUnits: 1000,
+        completedUnits: 300,
+        currentStageId: 'stage-proof',
+        startDate: '2026-07-02T00:00:00Z',
+        deadline: '2026-07-27T00:00:00Z',
+        notes: null,
+        createdAt: '2026-07-02T10:00:00Z',
+        customAttributes: [
+          { id: 'attr-4', label: 'Paper Size', value: 'A4', displayOrder: 1 }
+        ]
+      }
+    ]
   },
   {
     id: 'bill-002',
+    billNumber: 'INV-002',
     customerId: 'cust-002',
-    works: [],
-    totalAmount: 20000,
-    totalAmountStatus: 'visible',
-    status: 'pending',
-    issueDate: '2026-06-18',
-    dueDate: '2026-07-18',
-    items: [
-      { name: 'T-Shirt Printing (Custom)', qty: 50, price: 350, total: 17500 },
-      { name: 'Business Cards (Premium)', qty: 500, price: 5, total: 2500 },
-    ],
-  },
-  {
-    id: 'bill-003',
-    customerId: 'cust-003',
-    works: [],
-    totalAmount: 10500,
-    totalAmountStatus: 'visible',
-    status: 'completed',
-    issueDate: '2026-06-20',
-    dueDate: '2026-07-20',
-    items: [
-      { name: 'Flex Printing (10x5 ft)', qty: 3, price: 3500, total: 10500 },
-    ],
-  },
-  {
-    id: 'bill-004',
-    customerId: 'cust-001',
-    works: [],
-    totalAmount: 10000,
-    totalAmountStatus: 'visible',
-    status: 'pending',
-    issueDate: '2026-06-25',
-    dueDate: '2026-07-25',
-    items: [
-      { name: 'Visiting Cards (Standard)', qty: 1000, price: 3, total: 3000 },
-      { name: 'Letterhead Printing', qty: 500, price: 8, total: 4000 },
-      { name: 'Envelope Printing', qty: 500, price: 6, total: 3000 },
-    ],
-  },
-  {
-    id: 'bill-005',
-    customerId: 'cust-004',
-    works: [],
-    totalAmount: 29000,
-    totalAmountStatus: 'visible',
-    status: 'completed',
-    issueDate: '2026-06-22',
-    dueDate: '2026-07-22',
-    items: [
-      { name: 'Stage Banner (20x10 ft)', qty: 1, price: 15000, total: 15000 },
-      { name: 'Standee (6x3 ft)', qty: 4, price: 2000, total: 8000 },
-      { name: 'Brochure (A5, Full Color)', qty: 300, price: 20, total: 6000 },
-    ],
-  },
-  {
-    id: 'bill-006',
-    customerId: 'cust-006',
-    works: [],
-    totalAmount: 10000,
-    totalAmountStatus: 'visible',
-    status: 'pending',
-    issueDate: '2026-06-26',
-    dueDate: '2026-07-26',
-    items: [
-      { name: 'Photo Album (Custom)', qty: 2, price: 5000, total: 10000 },
-    ],
-  },
-  {
-    id: 'bill-007',
-    customerId: 'cust-002',
-    works: [],
-    totalAmount: 3000,
-    totalAmountStatus: 'visible',
-    status: 'completed',
-    issueDate: '2026-06-12',
-    dueDate: '2026-07-12',
-    items: [
-      { name: 'Poster Printing (A2)', qty: 20, price: 150, total: 3000 },
-    ],
-  },
-  {
-    id: 'bill-008',
-    customerId: 'cust-005',
-    works: [],
-    totalAmount: 18000,
-    totalAmountStatus: 'visible',
-    status: 'completed',
-    issueDate: '2026-05-28',
-    dueDate: '2026-06-28',
-    items: [
-      { name: 'Pamphlet Printing (A5)', qty: 5000, price: 2, total: 10000 },
-      { name: 'Banner Printing (4x2 ft)', qty: 10, price: 800, total: 8000 },
-    ],
-  },
+    customerName: 'Priya Sharma',
+    customerEmail: 'priya@example.com',
+    customerPhone: '+94 71 111 1111',
+    billStatusId: 'status-unpaid',
+    workflowId: 'wf-simple',
+    orderDate: '2026-07-05T00:00:00Z',
+    deadline: '2026-07-15T00:00:00Z',
+    paidAmount: 0,
+    notes: null,
+    createdAt: '2026-07-05T10:00:00Z',
+    updatedAt: '2026-07-05T10:00:00Z',
+    adjustments: [],
+    works: [
+      {
+        id: 'work-flyers',
+        billId: 'bill-002',
+        name: 'Promotional Flyers',
+        serviceCategory: 'Marketing Materials',
+        description: 'A5 color flyers',
+        unitLabel: 'items',
+        unitCost: 15,
+        totalUnits: 2000,
+        completedUnits: 0,
+        currentStageId: 'stage-prep',
+        startDate: '2026-07-06T00:00:00Z',
+        deadline: '2026-07-14T00:00:00Z',
+        notes: null,
+        createdAt: '2026-07-05T10:00:00Z',
+        customAttributes: []
+      }
+    ]
+  }
 ];
 
-// ── Mock Activity Logs ──────────────────────────────────────────────
-export const MOCK_ACTIVITY = [
-  { id: 1, type: 'Bill Created', message: 'INV-2026-000008 created for Karthik Raj', time: '2 hours ago' },
-  { id: 2, type: 'Status Changed', message: 'INV-2026-000005 moved to Ready for Delivery', time: '3 hours ago' },
-  { id: 3, type: 'Customer Created', message: 'Meena Sundaram added as new customer', time: '5 hours ago' },
-  { id: 4, type: 'Reminder Sent', message: 'Payment reminder sent to Priya Sharma', time: '1 day ago' },
-  { id: 5, type: 'Bill Completed', message: 'INV-2026-000001 marked as completed', time: '1 day ago' },
-  { id: 6, type: 'Invoice Generated', message: 'PDF invoice generated for INV-2026-000007', time: '2 days ago' },
-  { id: 7, type: 'Status Changed', message: 'INV-2026-000003 moved to Quality Check', time: '2 days ago' },
-  { id: 8, type: 'Bill Updated', message: 'INV-2026-000002 items updated', time: '3 days ago' },
-];
+export const MOCK_ACTIVITY = [];
+export const MOCK_NOTIFICATIONS = [];
+export const MOCK_REVENUE = [];
 
-// ── Mock Notifications (for Customer) ───────────────────────────────
-export const MOCK_NOTIFICATIONS = [
-  { id: 1, title: 'Order Update', message: 'Your order INV-2026-000002 is now In Progress', time: '2 hours ago', read: false },
-  { id: 2, title: 'New Bill', message: 'A new bill INV-2026-000004 has been created', time: '1 day ago', read: false },
-  { id: 3, title: 'Invoice Ready', message: 'Invoice for INV-2026-000001 is ready to download', time: '2 days ago', read: true },
-  { id: 4, title: 'Order Completed', message: 'Your order INV-2026-000001 is completed', time: '3 days ago', read: true },
-];
-
-// ── Monthly Revenue Data (for Reports) ──────────────────────────────
-export const MOCK_REVENUE = [
-  { month: 'Jan', revenue: 45000, bills: 12 },
-  { month: 'Feb', revenue: 62000, bills: 18 },
-  { month: 'Mar', revenue: 38000, bills: 10 },
-  { month: 'Apr', revenue: 71000, bills: 22 },
-  { month: 'May', revenue: 55000, bills: 15 },
-  { month: 'Jun', revenue: 89500, bills: 24 },
-];
+// Backwards compatibility export just in case
+export const WORKFLOW_TEMPLATES = MOCK_WORKFLOWS;
